@@ -7,14 +7,6 @@ master_ip: "{{ hostvars[groups['master'][0]]['ansible_host'] | default(groups['m
 extra_server_args: ""
 extra_agent_args: ""
 
-dnsmasq_config_file: |
-  port=53
-  listen-address=192.168.178.50 # Set to Server IP for network responses
-  address=/homeserver/192.168.178.50
-  address=/homeserver/2003:c2:ef23:a900:dea6:32ff:fe85:659c
-  address=/fritz.box/192.168.178.1
-  server=8.8.8.8
-
 
 
 

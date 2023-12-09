@@ -77,38 +77,3 @@
     src: /usr/local/bin/k3s
     dest: /usr/local/bin/crictl
     state: link
-
-#INSTALL DNSMASQ
-
-- name: Disable service
-  systemd:
-    name: "systemd-resolved"
-    state: stopped
-    enabled: no
-  failed_when: false
-
-- name: Remove symlink of resolv.conf
-  file:
-    path: "/etc/resolv.conf"
-    state: absent
-
-- name: add content to resolv.conf
-  copy:
-    dest: "/etc/resolv.conf"
-    content: |
-      nameserver 8.8.8.8
-
-- name: Update repositories cache and install "dnsmasq" package
-  ansible.builtin.apt:
-    name: dnsmasq
-    update_cache: yes
-
-- copy:
-    content: "{{ dnsmasq_config_file }}"
-    dest: "/etc/dnsmasq.conf"
-
-- name: Restart service dnsmasq in all cases, also issue daemon-reload to pick up config changes
-  ansible.builtin.systemd:
-    state: restarted
-    daemon_reload: true
-    name: dnsmasq
