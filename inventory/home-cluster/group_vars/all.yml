@@ -4,8 +4,8 @@ ansible_user: pi
 ansible_ssh_pass: pi
 systemd_dir: /etc/systemd/system
 master_ip: "{{ hostvars[groups['master'][0]]['ansible_host'] | default(groups['master'][0]) }}"
-extra_server_args: ""
-extra_agent_args: ""
+extra_server_args: '--disable=traefik --kubelet-arg "kube-reserved=cpu=500m,memory=500Mi,ephemeral-storage=1Gi" --kubelet-arg "system-reserved=cpu=500m,memory=500Mi,ephemeral-storage=1Gi" --kubelet-arg "eviction-hard=memory.available<300Mi,nodefs.available<10%"'
+extra_agent_args: '--disable=traefik --kubelet-arg "kube-reserved=cpu=500m,memory=500Mi,ephemeral-storage=1Gi" --kubelet-arg "system-reserved=cpu=500m,memory=500Mi,ephemeral-storage=1Gi" --kubelet-arg "eviction-hard=memory.available<300Mi,nodefs.available<10%"'
 
 
 
